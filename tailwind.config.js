@@ -7,8 +7,7 @@ module.exports = {
         },
         extend: {
             backgroundImage: {
-                'main-pattern':
-                    "url('./assets/row-of-young-adults-at-work.jpg')",
+                'main-pattern': "url('./assets/logo2.jpg')",
             },
         },
     },
