@@ -2,7 +2,7 @@ export default function Select({ label, name, optionsType }) {
     return (
         <>
             <div className="flex flex-col">
-                <label for={name}>{label}</label>
+                <label htmlFor={name}>{label}</label>
                 <select
                     name={name}
                     id={name}
