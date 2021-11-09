@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-export default function Input({ label, name, type }) {
+export default function Input({ label, name, type, setElement }) {
+    const dispatch = useDispatch();
+
     const [inputValue, setValue] = useState();
 
     const handleChange = (e) => {
         setValue(e);
     };
+
+    useEffect(() => {
+        dispatch(setElement(inputValue));
+    }, [dispatch, inputValue, setElement]);
 
     return (
         <>

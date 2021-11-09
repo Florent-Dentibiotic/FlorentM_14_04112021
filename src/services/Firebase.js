@@ -15,7 +15,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 export default function Firebase() {
     const [allEmployees, setEmployeesList] = useState();
