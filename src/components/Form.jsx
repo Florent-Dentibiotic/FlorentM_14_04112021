@@ -1,80 +1,102 @@
-import { useStore } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+//import { useStore } from 'react-redux';
 import {
-    setBirthdate,
-    setCity,
-    setDepartment,
-    setFirstName,
-    setLastName,
-    setStartDate,
-    setStateName,
-    setStreet,
-    setZipcode,
+    setReduxBirthdate,
+    setReduxCity,
+    setReduxDepartment,
+    setReduxFirstName,
+    setReduxLastName,
+    setReduxStartDate,
+    setReduxStateName,
+    setReduxStreet,
+    setReduxZipcode,
 } from '../reducers/employeesReducer';
-import { selectEmployee } from '../Selectors/selector';
-import writeUserData from '../services/WriteUserData';
+// import { selectEmployee } from '../Selectors/selector';
+// import writeUserData from '../services/WriteUserData';
 import Input from './Input';
 import Select from './Select';
 
 export default function From() {
-    //const colection = db.collection('Employees-list');
-    const store = useStore();
-    const firstName = selectEmployee(store.getState()).user.firstName;
-    const lastName = selectEmployee(store.getState()).user.lastName;
-    const birthdate = selectEmployee(store.getState()).user.birthdate;
-    const startDate = selectEmployee(store.getState()).user.startDate;
-    const street = selectEmployee(store.getState()).user.street;
-    const city = selectEmployee(store.getState()).user.city;
-    const zipcode = selectEmployee(store.getState()).user.zipcode;
-    const stateName = selectEmployee(store.getState()).user.stateName;
-    const department = selectEmployee(store.getState()).user.department;
-
-    const employeeData = {
-        firstName: firstName,
-        lastName: lastName,
-        birthdate: birthdate,
-        startDate: startDate,
-        street: street,
-        city: city,
-        zipcode: zipcode,
-        stateName: stateName,
-        department: department,
-    };
+    //const store = useStore();
+    const dispatch = useDispatch();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [birthdate, setBirthdate] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [street, setStreet] = useState('');
+    const [city, setCity] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const [stateName, setStateName] = useState('');
+    const [department, setDepartment] = useState('');
 
     const handleSubmit = (e) => {
+        const employeeData = {
+            firstName: firstName,
+            lastName: lastName,
+            birthdate: birthdate,
+            startDate: startDate,
+            street: street,
+            city: city,
+            zipcode: zipcode,
+            stateName: stateName,
+            department: department,
+        };
+        if (employeeData) {
+            dispatch(setReduxFirstName(firstName));
+            dispatch(setReduxLastName(lastName));
+            dispatch(setReduxBirthdate(birthdate));
+            dispatch(setReduxStartDate(startDate));
+            dispatch(setReduxStreet(street));
+            dispatch(setReduxCity(city));
+            dispatch(setReduxZipcode(zipcode));
+            dispatch(setReduxStateName(stateName));
+            dispatch(setReduxDepartment(department));
+        }
+        setFirstName('');
+        setLastName('');
+        setBirthdate('');
+        setStartDate('');
+        setStreet('');
+        setCity('');
+        setZipcode('');
+        setStateName('');
+        setDepartment('');
         e.preventDefault();
         e.stopPropagation();
-        if (employeeData) {
-            writeUserData(employeeData);
-        }
     };
 
     return (
         <>
-            <form className="p-2" onSubmit={handleSubmit}>
+            <form className="p-2">
                 <div className="flex flex-wrap justify-between mb-2">
                     <Input
                         label="First Name"
                         name="firstName"
                         type="text"
                         setElement={setFirstName}
+                        value={firstName}
                     />
                     <Input
                         label="Date of Birth"
                         name="birthdate"
                         type="date"
                         setElement={setBirthdate}
+                        value={birthdate}
                     />
                     <Input
                         label="Last Name"
                         name="lastName"
                         type="text"
                         setElement={setLastName}
+                        value={lastName}
                     />
                     <Input
                         label="Start Date"
                         name="startdate"
                         type="date"
                         setElement={setStartDate}
+                        value={startDate}
                     />
                 </div>
                 <hr className="shadow" />
@@ -85,24 +107,28 @@ export default function From() {
                         name="street"
                         type="text"
                         setElement={setStreet}
+                        value={street}
                     />
                     <Input
                         label="City"
                         name="city"
                         type="text"
                         setElement={setCity}
+                        value={city}
                     />
                     <Select
                         label="State"
                         name="state"
                         optionsType="state"
                         setElement={setStateName}
+                        value={stateName}
                     />
                     <Input
                         label="Zipcode"
                         name="zipcode"
                         type="number"
                         setElement={setZipcode}
+                        value={zipcode}
                     />
                 </div>
                 <div className="px-2">
@@ -111,11 +137,13 @@ export default function From() {
                         name="department"
                         optionsType="department"
                         setElement={setDepartment}
+                        value={department}
                     />
                 </div>
                 <div className="flex justify-center p-5">
                     <button
                         className="text-white bg-green-900 p-2 opacity-80 rounded"
+                        onClick={handleSubmit}
                         //type="submit"
                     >
                         Save

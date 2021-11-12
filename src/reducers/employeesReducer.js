@@ -24,48 +24,48 @@ const employeeState = {
 
 // ACTIONS CREATOR
 
-export const setFirstName = (firstName) => ({
-    type: 'setFirstName',
+export const setReduxFirstName = (firstName) => ({
+    type: 'setReduxFirstName',
     payload: { firstName: firstName },
 });
 
-export const setLastName = (lastName) => ({
-    type: 'setLastName',
+export const setReduxLastName = (lastName) => ({
+    type: 'setReduxLastName',
     payload: { lastName: lastName },
 });
 
-export const setBirthdate = (birthdate) => ({
-    type: 'setBirthdate',
+export const setReduxBirthdate = (birthdate) => ({
+    type: 'setReduxBirthdate',
     payload: { birthdate: birthdate },
 });
 
-export const setStartDate = (startDate) => ({
-    type: 'setStartDate',
+export const setReduxStartDate = (startDate) => ({
+    type: 'setReduxStartDate',
     payload: { startDate: startDate },
 });
 
-export const setStreet = (street) => ({
-    type: 'setStreet',
+export const setReduxStreet = (street) => ({
+    type: 'setReduxStreet',
     payload: { street: street },
 });
 
-export const setCity = (city) => ({
-    type: 'setCity',
+export const setReduxCity = (city) => ({
+    type: 'setReduxCity',
     payload: { city: city },
 });
 
-export const setZipcode = (zipcode) => ({
-    type: 'setZipcode',
+export const setReduxZipcode = (zipcode) => ({
+    type: 'setReduxZipcode',
     payload: { zipcode: zipcode },
 });
 
-export const setStateName = (stateName) => ({
-    type: 'setStateName',
+export const setReduxStateName = (stateName) => ({
+    type: 'setReduxStateName',
     payload: { stateName: stateName },
 });
 
-export const setDepartment = (department) => ({
-    type: 'setDepartment',
+export const setReduxDepartment = (department) => ({
+    type: 'setReduxDepartment',
     payload: { department: department },
 });
 
@@ -74,55 +74,55 @@ export const setDepartment = (department) => ({
 export default function employeeReducer(state = employeeState, action) {
     return produce(state, () => {
         switch (action.type) {
-            case 'setFirstName': {
+            case 'setReduxFirstName': {
                 const firstName = action.payload.firstName;
                 return produce(state, (draft) => {
                     draft.user.firstName = firstName;
                 });
             }
-            case 'setLastName': {
+            case 'setReduxLastName': {
                 const lastName = action.payload.lastName;
                 return produce(state, (draft) => {
                     draft.user.lastName = lastName;
                 });
             }
-            case 'setBirthdate': {
+            case 'setReduxBirthdate': {
                 const birthdate = action.payload.birthdate;
                 return produce(state, (draft) => {
                     draft.user.birthdate = birthdate;
                 });
             }
-            case 'setStartDate': {
+            case 'setReduxStartDate': {
                 const startDate = action.payload.startDate;
                 return produce(state, (draft) => {
                     draft.user.startDate = startDate;
                 });
             }
-            case 'setStreet': {
+            case 'setReduxStreet': {
                 const street = action.payload.street;
                 return produce(state, (draft) => {
                     draft.user.street = street;
                 });
             }
-            case 'setCity': {
+            case 'setReduxCity': {
                 const city = action.payload.city;
                 return produce(state, (draft) => {
                     draft.user.city = city;
                 });
             }
-            case 'setZipcode': {
+            case 'setReduxZipcode': {
                 const zipcode = action.payload.zipcode;
                 return produce(state, (draft) => {
                     draft.user.zipcode = zipcode;
                 });
             }
-            case 'setStateName': {
+            case 'setReduxStateName': {
                 const stateName = action.payload.stateName;
                 return produce(state, (draft) => {
                     draft.user.stateName = stateName;
                 });
             }
-            case 'setDepartment': {
+            case 'setReduxDepartment': {
                 const department = action.payload.department;
                 return produce(state, (draft) => {
                     draft.user.department = department;

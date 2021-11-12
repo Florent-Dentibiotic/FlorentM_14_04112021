@@ -12,7 +12,7 @@ export default function Table({ employeesList }) {
                 <tbody>
                     {employeesList &&
                         employeesList.map((employee) => (
-                            <tr key={employee.firstName}>
+                            <tr key={employee.id}>
                                 <td className="p-5">{employee.firstName}</td>
                                 <td className="p-5">{employee.lastName}</td>
                                 <td className="p-5">{employee.Birthday}</td>

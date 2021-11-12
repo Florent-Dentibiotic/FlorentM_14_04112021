@@ -25,9 +25,10 @@ export default function Firebase() {
         async function getEmployees(db) {
             const employees = collection(db, 'Employees-list');
             const employeesSnapshot = await getDocs(employees);
-            const employeesList = employeesSnapshot.docs.map((doc) =>
-                doc.data()
-            );
+            const employeesList = employeesSnapshot.docs.map((doc) => ({
+                ...doc.data(),
+                id: doc.id,
+            }));
             return setEmployeesList(employeesList);
         }
 

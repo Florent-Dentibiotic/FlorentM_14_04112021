@@ -1,18 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-export default function Input({ label, name, type, setElement }) {
-    const dispatch = useDispatch();
-
-    const [inputValue, setValue] = useState();
-
+export default function Input({ label, name, type, setElement, value }) {
     const handleChange = (e) => {
-        setValue(e);
+        setElement(e);
     };
-
-    useEffect(() => {
-        dispatch(setElement(inputValue));
-    }, [dispatch, inputValue, setElement]);
 
     return (
         <>
@@ -24,7 +13,7 @@ export default function Input({ label, name, type, setElement }) {
                     id={name}
                     required
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2"
-                    value={inputValue}
+                    value={value}
                     onChange={(e) => handleChange(e.target.value)}
                 ></input>
             </div>

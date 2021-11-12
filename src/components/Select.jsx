@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-export default function Select({ label, name, optionsType, setElement }) {
-    const dispatch = useDispatch();
-    const [selectValue, setValue] = useState();
-
+export default function Select({
+    label,
+    name,
+    optionsType,
+    setElement,
+    value,
+}) {
     const handleChange = (e) => {
-        setValue(e);
+        setElement(e);
     };
-
-    useEffect(() => {
-        dispatch(setElement(selectValue));
-    }, [dispatch, selectValue, setElement]);
 
     return (
         <>
@@ -21,7 +17,7 @@ export default function Select({ label, name, optionsType, setElement }) {
                     name={name}
                     id={name}
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded"
-                    value={selectValue}
+                    value={value}
                     onChange={(e) => handleChange(e.target.value)}
                 >
                     {optionsType === 'state' ? (
