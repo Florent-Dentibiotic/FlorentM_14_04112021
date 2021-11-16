@@ -1,4 +1,5 @@
 export default function Table({ employeesList }) {
+    console.log(employeesList);
     return (
         <div className="">
             <table>

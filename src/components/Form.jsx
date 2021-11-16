@@ -1,25 +1,12 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-//import { useStore } from 'react-redux';
-import {
-    setReduxBirthdate,
-    setReduxCity,
-    setReduxDepartment,
-    setReduxFirstName,
-    setReduxLastName,
-    setReduxStartDate,
-    setReduxStateName,
-    setReduxStreet,
-    setReduxZipcode,
-} from '../reducers/employeesReducer';
-// import { selectEmployee } from '../Selectors/selector';
-// import writeUserData from '../services/WriteUserData';
+import { useStore } from 'react-redux';
+import { addEmployeeService } from '../services/addEmployeeService';
 import Input from './Input';
 import Select from './Select';
 
 export default function From() {
-    //const store = useStore();
-    const dispatch = useDispatch();
+    const store = useStore();
+    //const dispatch = useDispatch();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthdate, setBirthdate] = useState('');
@@ -42,17 +29,7 @@ export default function From() {
             stateName: stateName,
             department: department,
         };
-        if (employeeData) {
-            dispatch(setReduxFirstName(firstName));
-            dispatch(setReduxLastName(lastName));
-            dispatch(setReduxBirthdate(birthdate));
-            dispatch(setReduxStartDate(startDate));
-            dispatch(setReduxStreet(street));
-            dispatch(setReduxCity(city));
-            dispatch(setReduxZipcode(zipcode));
-            dispatch(setReduxStateName(stateName));
-            dispatch(setReduxDepartment(department));
-        }
+        addEmployeeService(store, employeeData);
         setFirstName('');
         setLastName('');
         setBirthdate('');

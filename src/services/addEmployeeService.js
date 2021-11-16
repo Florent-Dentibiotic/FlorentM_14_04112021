@@ -1,0 +1,31 @@
+// import { getDatabase, ref, set } from 'firebase/database';
+// import { addDoc } from '@firebase/firestore/dist/lite';
+import { collection, addDocs, getDocs } from 'firebase/firestore/lite';
+import { selectEmployee } from '../Selectors/selector';
+import {
+    employeesFetching,
+    employeesResolved,
+    employeesRejected,
+} from '../reducers/employeesReducer';
+import { db } from './EmployeeService';
+
+export async function employeeService(store, data) {
+    const status = selectEmployee(store.getState()).status;
+    if (status === 'pending' || status === 'updating') {
+        return;
+    }
+    store.dispatch(employeesFetching());
+    try {
+        const employees = collection(db, 'Employees-list');
+        await addDocs(employees, data);
+        const employeesSnapshot = await getDocs(employees);
+        const employeesList = employeesSnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+        }));
+        store.dispatch(employeesResolved(employeesList));
+    } catch (error) {
+        console.log(error.message);
+        store.dispatch(employeesRejected(error.message));
+    }
+}
