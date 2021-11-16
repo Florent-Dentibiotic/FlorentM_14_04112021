@@ -16,12 +16,12 @@ export default function Table({ employeesList }) {
                             <tr key={employee.id}>
                                 <td className="p-5">{employee.firstName}</td>
                                 <td className="p-5">{employee.lastName}</td>
-                                <td className="p-5">{employee.birthday}</td>
+                                <td className="p-5">{employee.birthdate}</td>
                                 <td className="p-5">{employee.startDate}</td>
                                 <td className="p-5">{employee.street}</td>
                                 <td className="p-5">{employee.city}</td>
                                 <td className="p-5">{employee.zipcode}</td>
-                                <td className="p-5">{employee.state}</td>
+                                <td className="p-5">{employee.stateName}</td>
                                 <td className="p-5">{employee.department}</td>
                             </tr>
                         ))}

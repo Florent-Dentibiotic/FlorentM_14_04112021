@@ -1,15 +1,30 @@
-// import { getDatabase, ref, set } from 'firebase/database';
-// import { addDoc } from '@firebase/firestore/dist/lite';
-import { collection, addDocs, getDocs } from 'firebase/firestore/lite';
+import { initializeApp } from 'firebase/app';
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+} from 'firebase/firestore/lite';
 import { selectEmployee } from '../Selectors/selector';
 import {
     employeesFetching,
     employeesResolved,
     employeesRejected,
 } from '../reducers/employeesReducer';
-import { db } from './EmployeeService';
 
-export async function employeeService(store, data) {
+const firebaseConfig = {
+    apiKey: 'AIzaSyCOhQsYY_P6e8GAhNVmGP1yf2zCslaP11Q',
+    authDomain: 'hrnet-7a7fe.firebaseapp.com',
+    projectId: 'hrnet-7a7fe',
+    storageBucket: 'hrnet-7a7fe.appspot.com',
+    messagingSenderId: '816336692176',
+    appId: '1:816336692176:web:cb057d71cfb138a4e18fd5',
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export async function addEmployeeService(store, data) {
     const status = selectEmployee(store.getState()).status;
     if (status === 'pending' || status === 'updating') {
         return;
@@ -17,7 +32,7 @@ export async function employeeService(store, data) {
     store.dispatch(employeesFetching());
     try {
         const employees = collection(db, 'Employees-list');
-        await addDocs(employees, data);
+        await addDoc(employees, data);
         const employeesSnapshot = await getDocs(employees);
         const employeesList = employeesSnapshot.docs.map((doc) => ({
             ...doc.data(),

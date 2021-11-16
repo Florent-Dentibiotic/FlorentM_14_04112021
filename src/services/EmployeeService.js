@@ -1,5 +1,3 @@
-// import { getDatabase, ref, set } from 'firebase/database';
-// import { addDoc } from '@firebase/firestore/dist/lite';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { selectEmployee } from '../Selectors/selector';
