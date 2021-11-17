@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
 
-export default function Header() {
+export default function Header({ link, label }) {
     return (
         <>
             <div className="flex justify-between p-5">
@@ -9,8 +9,8 @@ export default function Header() {
                     <h1 className="text-center text-2xl font-bold m-2">
                         HRnet
                     </h1>
-                    <Link className="text-xs underline" to="/employee-list">
-                        View Current Employees
+                    <Link className="m-2 text-xs underline" to={link}>
+                        {label}
                     </Link>
                 </div>
 

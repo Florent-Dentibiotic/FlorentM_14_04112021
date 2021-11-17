@@ -6,6 +6,7 @@ import {
 } from '../reducers/employeesReducer';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from './Firebase';
+import EmployeeMapper from '../mapping/EmployeeMapper';
 
 export async function employeeService(store) {
     const status = selectEmployee(store.getState()).status;
@@ -20,7 +21,11 @@ export async function employeeService(store) {
             ...doc.data(),
             id: doc.id,
         }));
-        store.dispatch(employeesResolved(employeesList));
+        const employeesListMapped = employeesList.map((employee) =>
+            EmployeeMapper.convertToEmployee(employee)
+        );
+        console.log(employeesListMapped);
+        store.dispatch(employeesResolved(employeesListMapped));
     } catch (error) {
         console.log(error.message);
         store.dispatch(employeesRejected(error.message));
