@@ -16,7 +16,7 @@ export default class EmployeeMapper {
             json.department,
             json.street,
             json.city,
-            json.state,
+            json.stateName,
             json.zipcode,
             json.id
         );

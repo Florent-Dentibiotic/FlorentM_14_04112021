@@ -21,7 +21,7 @@ export default class Employee {
         department,
         street,
         city,
-        state,
+        stateName,
         zipcode,
         id
     ) {
@@ -32,7 +32,7 @@ export default class Employee {
         this.department = department;
         this.street = street;
         this.city = city;
-        this.state = state;
+        this.stateName = stateName;
         this.zipcode = zipcode;
         this.id = id;
     }

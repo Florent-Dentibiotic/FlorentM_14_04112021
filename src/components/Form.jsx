@@ -4,6 +4,8 @@ import { addEmployeeService } from '../services/addEmployeeService';
 import Input from './Input';
 import Select from './Select';
 
+const regexName = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
+
 export default function From() {
     const store = useStore();
     //const dispatch = useDispatch();
@@ -18,29 +20,32 @@ export default function From() {
     const [department, setDepartment] = useState('');
 
     const handleSubmit = (e) => {
-        const employeeData = {
-            firstName: firstName,
-            lastName: lastName,
-            birthdate: birthdate,
-            startDate: startDate,
-            street: street,
-            city: city,
-            zipcode: zipcode,
-            stateName: stateName,
-            department: department,
-        };
-        addEmployeeService(store, employeeData);
-        setFirstName('');
-        setLastName('');
-        setBirthdate('');
-        setStartDate('');
-        setStreet('');
-        setCity('');
-        setZipcode('');
-        setStateName('');
-        setDepartment('');
-        e.preventDefault();
-        e.stopPropagation();
+        if (regexName.test(firstName) && regexName.test(lastName)) {
+            const employeeData = {
+                firstName: firstName,
+                lastName: lastName,
+                birthdate: birthdate,
+                startDate: startDate,
+                street: street,
+                city: city,
+                zipcode: zipcode,
+                stateName: stateName,
+                department: department,
+            };
+            addEmployeeService(store, employeeData);
+            setFirstName('');
+            setLastName('');
+            setBirthdate('');
+            setStartDate('');
+            setStreet('');
+            setCity('');
+            setZipcode('');
+            setStateName('');
+            setDepartment('');
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        return;
     };
 
     return (

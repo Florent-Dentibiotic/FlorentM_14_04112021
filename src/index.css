@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .border-b-color-0 {
+        border-bottom-color: transparent;
+    }
+}

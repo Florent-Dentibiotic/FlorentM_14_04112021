@@ -11,7 +11,6 @@ export default function Input({ label, name, type, setElement, value }) {
                     type={type}
                     name={name}
                     id={name}
-                    required
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2"
                     value={value}
                     onChange={(e) => handleChange(e.target.value)}
