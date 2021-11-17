@@ -1,28 +1,11 @@
-import { initializeApp } from 'firebase/app';
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-} from 'firebase/firestore/lite';
+import { collection, addDoc, getDocs } from 'firebase/firestore/lite';
 import { selectEmployee } from '../Selectors/selector';
 import {
     employeesFetching,
     employeesResolved,
     employeesRejected,
 } from '../reducers/employeesReducer';
-
-const firebaseConfig = {
-    apiKey: 'AIzaSyCOhQsYY_P6e8GAhNVmGP1yf2zCslaP11Q',
-    authDomain: 'hrnet-7a7fe.firebaseapp.com',
-    projectId: 'hrnet-7a7fe',
-    storageBucket: 'hrnet-7a7fe.appspot.com',
-    messagingSenderId: '816336692176',
-    appId: '1:816336692176:web:cb057d71cfb138a4e18fd5',
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db } from './Firebase';
 
 export async function addEmployeeService(store, data) {
     const status = selectEmployee(store.getState()).status;
