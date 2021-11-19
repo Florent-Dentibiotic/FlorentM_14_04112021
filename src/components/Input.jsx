@@ -1,4 +1,4 @@
-export default function Input({ label, name, type, setElement, value }) {
+export default function Input({ label, name, type, setElement, value, max }) {
     const handleChange = (e) => {
         setElement(e);
     };
@@ -14,6 +14,7 @@ export default function Input({ label, name, type, setElement, value }) {
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2"
                     value={value}
                     onChange={(e) => handleChange(e.target.value)}
+                    max={max}
                 ></input>
             </div>
         </>

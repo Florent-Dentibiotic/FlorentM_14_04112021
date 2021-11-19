@@ -1,3 +1,5 @@
+import { states } from './StateList';
+
 export default function Select({
     label,
     name,
@@ -22,12 +24,17 @@ export default function Select({
                 >
                     {optionsType === 'state' ? (
                         <>
-                            <option value="City">Choose a city</option>
-                            <option value="France">France</option>
+                            {states.map((state) => (
+                                <option
+                                    key={`state-${state.abbreviation}`}
+                                    value={state.abbreviation}
+                                >
+                                    {state.name}
+                                </option>
+                            ))}
                         </>
                     ) : (
                         <>
-                            <option value="Default">Choose a department</option>
                             <option value="Sales">Sales</option>
                             <option value="Marketing">Marketing</option>
                             <option value="Engineering">Engineering</option>

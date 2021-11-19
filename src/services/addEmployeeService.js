@@ -1,5 +1,5 @@
 import { collection, addDoc, getDocs } from 'firebase/firestore/lite';
-import { selectEmployee } from '../Selectors/selector';
+import { selectEmployee } from '../utils/selector';
 import {
     employeesFetching,
     employeesResolved,

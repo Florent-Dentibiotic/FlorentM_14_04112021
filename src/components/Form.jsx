@@ -6,7 +6,7 @@ import Select from './Select';
 
 const regexName = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
 
-export default function From() {
+export default function From({ setModal }) {
     const store = useStore();
     //const dispatch = useDispatch();
     const [firstName, setFirstName] = useState('');
@@ -33,6 +33,7 @@ export default function From() {
                 department: department,
             };
             addEmployeeService(store, employeeData);
+            setModal(true);
             setFirstName('');
             setLastName('');
             setBirthdate('');
@@ -82,7 +83,7 @@ export default function From() {
                     />
                 </div>
                 <hr className="shadow" />
-                <h3 className="ml-4 pt-2">Adress</h3>
+                <h2 className="ml-4 pt-2">Adress</h2>
                 <div className="p-2 flex flex-col justify-between m-2 border-black rounded border-2">
                     <Input
                         label="Street"
@@ -111,6 +112,7 @@ export default function From() {
                         type="number"
                         setElement={setZipcode}
                         value={zipcode}
+                        max="99999"
                     />
                 </div>
                 <div className="px-2">
@@ -124,7 +126,7 @@ export default function From() {
                 </div>
                 <div className="flex justify-center p-5">
                     <button
-                        className="text-white bg-green-900 p-2 opacity-80 rounded"
+                        className="text-white font-black w-24 bg-green-900 hover:opacity-100 p-2 opacity-80 rounded"
                         onClick={handleSubmit}
                         //type="submit"
                     >
