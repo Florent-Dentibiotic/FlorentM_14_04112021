@@ -1,21 +1,62 @@
+import { useState } from 'react';
 import { useStore } from 'react-redux';
 import { selectEmployee } from '../utils/selector';
 
 const tableHead = [
-    'First Name',
-    'Last Name',
-    'Start Date',
-    'Department',
-    'Date of Birth',
-    'Street',
-    'City',
-    'State',
-    'Zip Code',
+    { text: 'First Name', value: 'firstName' },
+    { text: 'Last Name', value: 'lastName' },
+    { text: 'Start Date', value: 'startDate' },
+    { text: 'Department', value: 'department' },
+    { text: 'Date of Birth', value: 'birthdate' },
+    { text: 'Street', value: 'street' },
+    { text: 'City', value: 'city' },
+    { text: 'State', value: 'stateName' },
+    { text: 'Zip Code', value: 'zipcode' },
 ];
 
 export default function Table() {
     const store = useStore();
-    const employeesList = selectEmployee(store.getState()).data;
+    const [employeesList, setEmployeesList] = useState(
+        selectEmployee(store.getState()).data
+    );
+
+    const handleSort = (e, direction, column) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(column);
+        let employeeListSorted = [];
+        if (direction === 'up') {
+            employeeListSorted = Array.from(employeesList).sort(function (
+                a,
+                b
+            ) {
+                if (a[column] < b[column]) {
+                    return -1;
+                }
+                if (a[column] > b[column]) {
+                    return 1;
+                }
+                return 0;
+            });
+        } else {
+            employeeListSorted = Array.from(employeesList).sort(function (
+                a,
+                b
+            ) {
+                if (a[column] > b[column]) {
+                    return -1;
+                }
+                if (a[column] < b[column]) {
+                    return 1;
+                }
+                return 0;
+                //return Date.parse(b[column]) - Date.parse(a[column]);
+            });
+        }
+        setEmployeesList(employeeListSorted);
+        //dispatch(employeesResolved(employeeListSorted));
+        console.log(employeesList, employeeListSorted);
+    };
 
     return (
         <div>
@@ -50,14 +91,30 @@ export default function Table() {
                 <thead>
                     <tr>
                         {tableHead.map((element) => (
-                            <th key={`head-${element}`} className="p-3 w-1/12">
+                            <th key={element.value} className="p-3 w-1/12">
                                 <div className="flex justify-between items-center whitespace-nowrap">
-                                    {element}
+                                    {element.text}
                                     <div className="ml-2 flex-col flex justify-between items-center">
-                                        <button>
+                                        <button
+                                            onClick={(e) =>
+                                                handleSort(
+                                                    e,
+                                                    'up',
+                                                    element.value
+                                                )
+                                            }
+                                        >
                                             <i className="fas fa-chevron-up text-xs"></i>
                                         </button>
-                                        <button>
+                                        <button
+                                            onClick={(e) =>
+                                                handleSort(
+                                                    e,
+                                                    'down',
+                                                    element.value
+                                                )
+                                            }
+                                        >
                                             <i className="fas fa-chevron-down text-xs"></i>
                                         </button>
                                     </div>
