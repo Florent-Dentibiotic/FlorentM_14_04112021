@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useStore } from 'react-redux';
 import { selectEmployee } from '../utils/selector';
+import PageList from './PagesList';
 
 const tableHead = [
     { text: 'First Name', value: 'firstName' },
@@ -16,17 +17,23 @@ const tableHead = [
 
 export default function Table() {
     const store = useStore();
-    const [employeesList, setEmployeesList] = useState(
+    const employeesListTotal = selectEmployee(store.getState()).data;
+    const [tableSize, setTableSize] = useState(10);
+    const pages = Math.ceil(employeesListTotal.length / tableSize);
+    const [page, setPage] = useState(1);
+    const [employeesListScreen, setEmployeesListScreen] = useState(
         selectEmployee(store.getState()).data
+    );
+    const [employeesList, setEmployeesList] = useState(
+        employeesListScreen.slice(0, tableSize)
     );
 
     const handleSort = (e, direction, column) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log(column);
         let employeeListSorted = [];
         if (direction === 'up') {
-            employeeListSorted = Array.from(employeesList).sort(function (
+            employeeListSorted = Array.from(employeesListTotal).sort(function (
                 a,
                 b
             ) {
@@ -39,7 +46,7 @@ export default function Table() {
                 return 0;
             });
         } else {
-            employeeListSorted = Array.from(employeesList).sort(function (
+            employeeListSorted = Array.from(employeesListTotal).sort(function (
                 a,
                 b
             ) {
@@ -50,12 +57,33 @@ export default function Table() {
                     return 1;
                 }
                 return 0;
-                //return Date.parse(b[column]) - Date.parse(a[column]);
             });
         }
-        setEmployeesList(employeeListSorted);
-        //dispatch(employeesResolved(employeeListSorted));
-        console.log(employeesList, employeeListSorted);
+        setEmployeesListScreen(employeeListSorted);
+        setEmployeesList(
+            employeeListSorted.slice(
+                tableSize * page - tableSize,
+                tableSize * page
+            )
+        );
+    };
+
+    const handleSetPage = (page) => {
+        setPage(page);
+        setEmployeesList(
+            employeesListScreen.slice(
+                tableSize * page - tableSize,
+                tableSize * page
+            )
+        );
+        //setEmployeesList();
+    };
+
+    const handleSetTableSize = (size) => {
+        setTableSize(size);
+        setEmployeesList(
+            employeesListScreen.slice(size * page - size, size * page)
+        );
     };
 
     return (
@@ -68,11 +96,12 @@ export default function Table() {
                         <select
                             name="show"
                             className="border-2 border-green-900 border-opacity-70 rounded mx-2"
+                            onChange={(e) => handleSetTableSize(e.target.value)}
                         >
-                            <option value="show10">10</option>
-                            <option value="show25">25</option>
-                            <option value="show50">50</option>
-                            <option value="show100">100</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
                         </select>
                         entries
                     </label>
@@ -157,6 +186,24 @@ export default function Table() {
                     ))}
                 </tbody>
             </table>
+            <div className="flex justify-between">
+                <div className="ml-4">
+                    <p>
+                        Showing {tableSize * page - tableSize + 1} to{' '}
+                        {tableSize * page > employeesListTotal.length
+                            ? employeesListTotal.length
+                            : tableSize * page}{' '}
+                        of {employeesListTotal.length}
+                    </p>
+                </div>
+                <div className="mr-4">
+                    <PageList
+                        nbrOfPages={pages}
+                        setPage={handleSetPage}
+                        page={page}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

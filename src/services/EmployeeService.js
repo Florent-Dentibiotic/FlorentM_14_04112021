@@ -24,7 +24,7 @@ export async function employeeService(store) {
         const employeesListMapped = employeesList.map((employee) =>
             EmployeeMapper.convertToEmployee(employee)
         );
-        console.log(employeesListMapped);
+        //console.log(employeesListMapped);
         store.dispatch(employeesResolved(employeesListMapped));
     } catch (error) {
         console.log(error.message);
