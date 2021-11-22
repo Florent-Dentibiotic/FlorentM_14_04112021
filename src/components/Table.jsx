@@ -18,8 +18,13 @@ const tableHead = [
 export default function Table() {
     const store = useStore();
     const employeesListTotal = selectEmployee(store.getState()).data;
+    const [employeesListLength, setEmployeesListLength] = useState(
+        employeesListTotal.length
+    );
     const [tableSize, setTableSize] = useState(10);
-    const pages = Math.ceil(employeesListTotal.length / tableSize);
+    const [pages, setPages] = useState(
+        Math.ceil(employeesListTotal.length / tableSize)
+    );
     const [page, setPage] = useState(1);
     const [employeesListScreen, setEmployeesListScreen] = useState(
         selectEmployee(store.getState()).data
@@ -27,13 +32,14 @@ export default function Table() {
     const [employeesList, setEmployeesList] = useState(
         employeesListScreen.slice(0, tableSize)
     );
+    //const [search, setSearch] = useState();
 
     const handleSort = (e, direction, column) => {
         e.preventDefault();
         e.stopPropagation();
         let employeeListSorted = [];
         if (direction === 'up') {
-            employeeListSorted = Array.from(employeesListTotal).sort(function (
+            employeeListSorted = Array.from(employeesListScreen).sort(function (
                 a,
                 b
             ) {
@@ -46,7 +52,7 @@ export default function Table() {
                 return 0;
             });
         } else {
-            employeeListSorted = Array.from(employeesListTotal).sort(function (
+            employeeListSorted = Array.from(employeesListScreen).sort(function (
                 a,
                 b
             ) {
@@ -76,7 +82,6 @@ export default function Table() {
                 tableSize * page
             )
         );
-        //setEmployeesList();
     };
 
     const handleSetTableSize = (size) => {
@@ -84,6 +89,25 @@ export default function Table() {
         setEmployeesList(
             employeesListScreen.slice(size * page - size, size * page)
         );
+    };
+
+    const handleSearch = (words) => {
+        let employeesListFiltered = [];
+        Array.from(employeesListTotal).forEach((element) => {
+            Object.values(element).some((e) =>
+                e.toUpperCase().includes(words.toUpperCase())
+            ) && employeesListFiltered.push(element);
+        });
+        console.log(employeesListFiltered);
+        setEmployeesListScreen(employeesListFiltered);
+        setEmployeesList(
+            employeesListFiltered.slice(
+                tableSize * page - tableSize,
+                tableSize * page
+            )
+        );
+        setPages(Math.ceil(employeesListFiltered.length / tableSize));
+        setEmployeesListLength(employeesListFiltered.length);
     };
 
     return (
@@ -113,6 +137,7 @@ export default function Table() {
                         name="search"
                         type="text"
                         className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2 ml-2"
+                        onChange={(e) => handleSearch(e.target.value)}
                     ></input>
                 </div>
             </div>
@@ -190,10 +215,12 @@ export default function Table() {
                 <div className="ml-4">
                     <p>
                         Showing {tableSize * page - tableSize + 1} to{' '}
-                        {tableSize * page > employeesListTotal.length
-                            ? employeesListTotal.length
+                        {tableSize * page > employeesListLength
+                            ? employeesListLength
                             : tableSize * page}{' '}
-                        of {employeesListTotal.length}
+                        of {employeesListLength}{' '}
+                        {employeesListLength < employeesListTotal.length &&
+                            `(filtered from ${employeesListTotal.length} total entries)`}
                     </p>
                 </div>
                 <div className="mr-4">
