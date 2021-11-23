@@ -24,7 +24,7 @@ export default function EmployeeList() {
             {isLoaded || isUpdating ? (
                 <>
                     <main className="font-sans relative opacity-10 bg-main-pattern bg-repeat-space bg-center w-screen h-screen flex justify-center items-center"></main>
-                    <div className="absolute border-4 border-green-900 border-opacity-70 top-4 left-1/2 transform -translate-x-1/2 bg-white rounded">
+                    <div className="absolute border-4 border-green-900 border-opacity-70 top-4 left-1/2 transform -translate-x-1/2 bg-white rounded w-11/12 overflow-scroll">
                         <Header link={'/'} label={'Back Home'} />
                         <Table />
                         <Footer />
@@ -33,7 +33,7 @@ export default function EmployeeList() {
             ) : (
                 <>
                     <main className="font-sans relative opacity-10 bg-main-pattern bg-repeat-space bg-center w-screen h-screen flex justify-center items-center"></main>
-                    <div className="absolute border-4 border-green-900 border-opacity-70 top-4 left-1/2 transform -translate-x-1/2 bg-white rounded">
+                    <div className="absolute border-4 border-green-900 border-opacity-70 top-4 left-1/2 transform -translate-x-1/2 bg-white rounded w-11/12">
                         <Header link={'/'} label={'Back Home'} />
                         <Loader />
                         <Footer />

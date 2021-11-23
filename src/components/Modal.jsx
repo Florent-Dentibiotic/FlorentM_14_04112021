@@ -5,7 +5,10 @@ export default function Modal({ setModal }) {
 
     return (
         <>
-            <div className="z-10 absolute top-0 left-0 h-screen w-screen flex justify-center items-center bg-black bg-opacity-50">
+            <div
+                className="z-10 absolute top-0 left-0 h-screen w-screen flex justify-center items-center bg-black bg-opacity-50"
+                onClick={handleClick}
+            >
                 <div className="p-9 border-4 flex flex-col justify-center items-center border-green-900 border-opacity-70 bg-white rounded overflow-hidden bg-scroll">
                     <p className="m-5">Employee Created!</p>
                     <button

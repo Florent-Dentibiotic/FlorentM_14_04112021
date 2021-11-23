@@ -32,7 +32,7 @@ export default function Table() {
     const [employeesList, setEmployeesList] = useState(
         employeesListScreen.slice(0, tableSize)
     );
-    //const [search, setSearch] = useState();
+    const [search, setSearch] = useState('');
 
     const handleSort = (e, direction, column) => {
         e.preventDefault();
@@ -92,6 +92,7 @@ export default function Table() {
     };
 
     const handleSearch = (words) => {
+        setSearch(words);
         let employeesListFiltered = [];
         Array.from(employeesListTotal).forEach((element) => {
             Object.values(element).some((e) =>
@@ -138,7 +139,16 @@ export default function Table() {
                         type="text"
                         className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2 ml-2"
                         onChange={(e) => handleSearch(e.target.value)}
+                        value={search}
                     ></input>
+                    {search.length > 0 ? (
+                        <i
+                            className="relative far fa-times-circle opacity-100 -left-6 cursor-pointer"
+                            onClick={() => handleSearch('')}
+                        ></i>
+                    ) : (
+                        <i className="relative far fa-times-circle opacity-0 -left-6"></i>
+                    )}
                 </div>
             </div>
             <table className="m-4 table-fixed">
@@ -146,10 +156,11 @@ export default function Table() {
                     <tr>
                         {tableHead.map((element) => (
                             <th key={element.value} className="p-3 w-1/12">
-                                <div className="flex justify-between items-center whitespace-nowrap">
+                                <div className="flex justify-around items-center whitespace-nowrap">
                                     {element.text}
-                                    <div className="ml-2 flex-col flex justify-between items-center">
+                                    <div className="ml-2 flex-col flex justify-center items-center opacity-25">
                                         <button
+                                            type="button"
                                             onClick={(e) =>
                                                 handleSort(
                                                     e,
@@ -161,6 +172,7 @@ export default function Table() {
                                             <i className="fas fa-chevron-up text-xs"></i>
                                         </button>
                                         <button
+                                            type="button"
                                             onClick={(e) =>
                                                 handleSort(
                                                     e,

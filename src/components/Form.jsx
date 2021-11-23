@@ -43,10 +43,9 @@ export default function From({ setModal }) {
             setZipcode('');
             setStateName('');
             setDepartment('');
-            e.preventDefault();
-            e.stopPropagation();
         }
-        return;
+        e.preventDefault();
+        e.stopPropagation();
     };
 
     return (
