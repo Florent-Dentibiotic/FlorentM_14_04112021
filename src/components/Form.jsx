@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { useStore } from 'react-redux';
+import { departments } from '../assets/json/departments';
+import { states } from '../assets/json/states';
 import { addEmployeeService } from '../services/addEmployeeService';
 import Input from './Input';
 import Select from './Select';
 
-const regexName = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
+const regexName =
+    /^([A-Z\u00C0-\u00D6\u00D8-\u00DE])([a-z\u00DF-\u00F6\u00F8-\u00FF '&-]+) ([A-Za-z\u00C0-\u00D6\u00D8-\u00DE\u00DF-\u00F6\u00F8-\u00FF '&-]+)$/m;
+const regexAddress = /(\d+) ((\w+[ ,])+ ){2}([A-Z]){2} (\d){5}/;
+const regexCity = /^[a-zA-Z]+(?:[\s-'.&/][a-zA-Z]+)*(?:[.|\s])?(?:[\(a-z\)])*$/;
+const regexZipcode = /^(?:[1-9]|0(?!0{4}))\d{4}(?:[-\s]\d{4})?$/;
 
 export default function From({ setModal }) {
     const store = useStore();
-    //const dispatch = useDispatch();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthdate, setBirthdate] = useState('');
@@ -20,7 +25,13 @@ export default function From({ setModal }) {
     const [department, setDepartment] = useState('');
 
     const handleSubmit = (e) => {
-        if (regexName.test(firstName) && regexName.test(lastName)) {
+        if (
+            regexName.test(firstName) &&
+            regexName.test(lastName) &&
+            regexAddress.text(street) &&
+            regexCity.test(city) &&
+            regexZipcode.test(zipcode)
+        ) {
             const employeeData = {
                 firstName: firstName,
                 lastName: lastName,
@@ -101,7 +112,7 @@ export default function From({ setModal }) {
                     <Select
                         label="State"
                         name="state"
-                        optionsType="state"
+                        options={states}
                         setElement={setStateName}
                         value={stateName}
                     />
@@ -118,7 +129,7 @@ export default function From({ setModal }) {
                     <Select
                         label="Department"
                         name="department"
-                        optionsType="department"
+                        options={departments}
                         setElement={setDepartment}
                         value={department}
                     />

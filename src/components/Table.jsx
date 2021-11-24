@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useStore } from 'react-redux';
 import { selectEmployee } from '../utils/selector';
-import PageList from './PagesList';
+//import PageList from './PagesList';
+import TableFooter from './TableFooter';
+import TableHeader from './TableHeader';
 
 const tableHead = [
     { text: 'First Name', value: 'firstName' },
@@ -114,43 +116,11 @@ export default function Table() {
     return (
         <div>
             <h1 className="text-center text-3xl m-4">Current Employees</h1>
-            <div className="flex justify-between">
-                <div className="ml-4">
-                    <label htmlFor="show">
-                        Show
-                        <select
-                            name="show"
-                            className="border-2 border-green-900 border-opacity-70 rounded mx-2"
-                            onChange={(e) => handleSetTableSize(e.target.value)}
-                        >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        entries
-                    </label>
-                </div>
-                <div className="pr-2">
-                    <label htmlFor="search">Search :</label>
-                    <input
-                        id="search"
-                        name="search"
-                        type="text"
-                        className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2 ml-2"
-                        onChange={(e) => handleSearch(e.target.value)}
-                        value={search}
-                    ></input>
-                    {search.length > 0 ? (
-                        <i
-                            className="relative far fa-times-circle opacity-100 -left-6 cursor-pointer"
-                            onClick={() => handleSearch('')}
-                        ></i>
-                    ) : (
-                        <i className="relative far fa-times-circle opacity-0 -left-6"></i>
-                    )}
-                </div>
-            </div>
+            <TableHeader
+                TableSize={handleSetTableSize}
+                search={search}
+                handleSearch={handleSearch}
+            />
             <table className="m-4 table-fixed">
                 <thead>
                     <tr>
@@ -223,7 +193,15 @@ export default function Table() {
                     ))}
                 </tbody>
             </table>
-            <div className="flex justify-between">
+            <TableFooter
+                tableSize={tableSize}
+                employeesListLength={employeesListLength}
+                employeesListTotalLength={employeesListTotal.length}
+                nbrOfPages={pages}
+                setPage={handleSetPage}
+                page={page}
+            />
+            {/* <div className="flex justify-between">
                 <div className="ml-4">
                     <p>
                         Showing {tableSize * page - tableSize + 1} to{' '}
@@ -242,7 +220,7 @@ export default function Table() {
                         page={page}
                     />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

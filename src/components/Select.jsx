@@ -1,12 +1,4 @@
-import { states } from './StateList';
-
-export default function Select({
-    label,
-    name,
-    optionsType,
-    setElement,
-    value,
-}) {
+export default function Select({ label, name, options, setElement, value }) {
     const handleChange = (e) => {
         setElement(e);
     };
@@ -22,28 +14,14 @@ export default function Select({
                     value={value}
                     onChange={(e) => handleChange(e.target.value)}
                 >
-                    {optionsType === 'state' ? (
-                        <>
-                            {states.map((state) => (
-                                <option
-                                    key={`state-${state.abbreviation}`}
-                                    value={state.abbreviation}
-                                >
-                                    {state.name}
-                                </option>
-                            ))}
-                        </>
-                    ) : (
-                        <>
-                            <option value="Sales">Sales</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Human Resources">
-                                Human Resources
-                            </option>
-                            <option value="Legal">Legal</option>
-                        </>
-                    )}
+                    {options.map((element) => (
+                        <option
+                            key={`element-${element.abbreviation}`}
+                            value={element.abbreviation}
+                        >
+                            {element.name}
+                        </option>
+                    ))}
                 </select>
             </div>
         </>
