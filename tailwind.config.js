@@ -10,6 +10,9 @@ module.exports = {
                 'main-pattern': "url('./assets/logo2.jpg')",
             },
         },
+        maxWidth: {
+            xxs: '210px',
+        },
     },
     variants: {
         extend: {},

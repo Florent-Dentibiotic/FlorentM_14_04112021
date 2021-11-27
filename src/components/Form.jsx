@@ -9,8 +9,9 @@ import Select from './Select';
 const regexName =
     /^([A-Z\u00C0-\u00D6\u00D8-\u00DE])([a-z\u00DF-\u00F6\u00F8-\u00FF '&-]+) ([A-Za-z\u00C0-\u00D6\u00D8-\u00DE\u00DF-\u00F6\u00F8-\u00FF '&-]+)$/m;
 const regexAddress = /(\d+) ((\w+[ ,])+ ){2}([A-Z]){2} (\d){5}/;
-const regexCity = /^[a-zA-Z]+(?:[\s-'.&/][a-zA-Z]+)*(?:[.|\s])?(?:[\(a-z\)])*$/;
+const regexCity = /^[a-zA-Z]+(?:[\s-'.&/][a-zA-Z]+)*(?:[.|\s])?(?:[(a-z)])*$/;
 const regexZipcode = /^(?:[1-9]|0(?!0{4}))\d{4}(?:[-\s]\d{4})?$/;
+const regexDate = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/;
 
 export default function From({ setModal }) {
     const store = useStore();
@@ -28,6 +29,8 @@ export default function From({ setModal }) {
         if (
             regexName.test(firstName) &&
             regexName.test(lastName) &&
+            regexDate.test(birthdate) &&
+            regexDate.test(startDate) &&
             regexAddress.text(street) &&
             regexCity.test(city) &&
             regexZipcode.test(zipcode)
@@ -62,14 +65,26 @@ export default function From({ setModal }) {
     return (
         <>
             <form className="p-2">
-                <div className="flex flex-wrap justify-between mb-2">
-                    <Input
-                        label="First Name"
-                        name="firstName"
-                        type="text"
-                        setElement={setFirstName}
-                        value={firstName}
-                    />
+                <div className="grid gap-1 grid-cols-2 mb-2">
+                    <div>
+                        <Input
+                            label="First Name"
+                            name="firstName"
+                            type="text"
+                            setElement={setFirstName}
+                            value={firstName}
+                        />
+                        {!regexName.test(firstName) ? (
+                            <p className="text-xs text-red-300">
+                                merci de saisir un prénom
+                            </p>
+                        ) : (
+                            <p className="text-xs text-red-300 opacity-0">
+                                merci de saisir un prénom
+                            </p>
+                        )}
+                    </div>
+
                     <Input
                         label="Date of Birth"
                         name="birthdate"
@@ -138,7 +153,6 @@ export default function From({ setModal }) {
                     <button
                         className="text-white font-black w-24 bg-green-900 hover:opacity-100 p-2 opacity-80 rounded"
                         onClick={handleSubmit}
-                        //type="submit"
                     >
                         Save
                     </button>

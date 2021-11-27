@@ -1,21 +1,19 @@
+import { tableSize } from '../assets/json/tableSize';
+import Select from './Select';
+
 export default function TableHeader({ TableSize, search, handleSearch }) {
     return (
         <div className="flex justify-between">
             <div className="ml-4">
-                <label htmlFor="show">
+                <div htmlFor="show" className="flex gap-3">
                     Show
-                    <select
+                    <Select
                         name="show"
-                        className="border-2 border-green-900 border-opacity-70 rounded mx-2"
-                        onChange={(e) => TableSize(e.target.value)}
-                    >
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
+                        options={tableSize}
+                        setElement={TableSize}
+                    />
                     entries
-                </label>
+                </div>
             </div>
             <div className="pr-2">
                 <label htmlFor="search">Search :</label>

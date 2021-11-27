@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Table from '../components/Table';
+import TableBody from '../components/TableBody';
 import { useStore } from 'react-redux';
 import { useEffect } from 'react';
 import { employeeService } from '../services/EmployeeService';
@@ -24,7 +24,7 @@ export default function EmployeeList() {
             <main className="font-sans relative opacity-10 bg-main-pattern bg-repeat-space bg-center w-screen h-screen flex justify-center items-center"></main>
             <div className="absolute border-4 border-green-900 border-opacity-70 top-4 left-1/2 transform -translate-x-1/2 bg-white rounded w-11/12 overflow-scroll">
                 <Header link={'/'} label={'Back Home'} />
-                {isLoaded || isUpdating ? <Table /> : <Loader />}
+                {isLoaded || isUpdating ? <TableBody /> : <Loader />}
                 <Footer />
             </div>
         </>

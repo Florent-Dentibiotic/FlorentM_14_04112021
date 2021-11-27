@@ -1,23 +1,11 @@
 import { useState } from 'react';
 import { useStore } from 'react-redux';
+import { tableHead } from '../assets/json/tableHead';
 import { selectEmployee } from '../utils/selector';
-//import PageList from './PagesList';
 import TableFooter from './TableFooter';
 import TableHeader from './TableHeader';
 
-const tableHead = [
-    { text: 'First Name', value: 'firstName' },
-    { text: 'Last Name', value: 'lastName' },
-    { text: 'Start Date', value: 'startDate' },
-    { text: 'Department', value: 'department' },
-    { text: 'Date of Birth', value: 'birthdate' },
-    { text: 'Street', value: 'street' },
-    { text: 'City', value: 'city' },
-    { text: 'State', value: 'stateName' },
-    { text: 'Zip Code', value: 'zipcode' },
-];
-
-export default function Table() {
+export default function TableBody() {
     const store = useStore();
     const employeesListTotal = selectEmployee(store.getState()).data;
     const [employeesListLength, setEmployeesListLength] = useState(
@@ -201,26 +189,6 @@ export default function Table() {
                 setPage={handleSetPage}
                 page={page}
             />
-            {/* <div className="flex justify-between">
-                <div className="ml-4">
-                    <p>
-                        Showing {tableSize * page - tableSize + 1} to{' '}
-                        {tableSize * page > employeesListLength
-                            ? employeesListLength
-                            : tableSize * page}{' '}
-                        of {employeesListLength}{' '}
-                        {employeesListLength < employeesListTotal.length &&
-                            `(filtered from ${employeesListTotal.length} total entries)`}
-                    </p>
-                </div>
-                <div className="mr-4">
-                    <PageList
-                        nbrOfPages={pages}
-                        setPage={handleSetPage}
-                        page={page}
-                    />
-                </div>
-            </div> */}
         </div>
     );
 }
