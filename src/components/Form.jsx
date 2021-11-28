@@ -6,14 +6,13 @@ import { addEmployeeService } from '../services/addEmployeeService';
 import Input from './Input';
 import Select from './Select';
 
-const regexName =
-    /^([A-Z\u00C0-\u00D6\u00D8-\u00DE])([a-z\u00DF-\u00F6\u00F8-\u00FF '&-]+) ([A-Za-z\u00C0-\u00D6\u00D8-\u00DE\u00DF-\u00F6\u00F8-\u00FF '&-]+)$/m;
-const regexAddress = /(\d+) ((\w+[ ,])+ ){2}([A-Z]){2} (\d){5}/;
+const regexName = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
+//const regexAddress = /(\d+) ((\w+[ ,])+ ){2}([A-Z]){2} (\d){5}/;
 const regexCity = /^[a-zA-Z]+(?:[\s-'.&/][a-zA-Z]+)*(?:[.|\s])?(?:[(a-z)])*$/;
-const regexZipcode = /^(?:[1-9]|0(?!0{4}))\d{4}(?:[-\s]\d{4})?$/;
+const regexZipcode = /^[0-9]{5}$/;
 const regexDate = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/;
 
-export default function From({ setModal }) {
+export default function From({ setModal, setModalContent }) {
     const store = useStore();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -22,8 +21,8 @@ export default function From({ setModal }) {
     const [street, setStreet] = useState('');
     const [city, setCity] = useState('');
     const [zipcode, setZipcode] = useState('');
-    const [stateName, setStateName] = useState('');
-    const [department, setDepartment] = useState('');
+    const [stateName, setStateName] = useState(states[0].abbreviation);
+    const [department, setDepartment] = useState(departments[0].abbreviation);
 
     const handleSubmit = (e) => {
         if (
@@ -31,7 +30,7 @@ export default function From({ setModal }) {
             regexName.test(lastName) &&
             regexDate.test(birthdate) &&
             regexDate.test(startDate) &&
-            regexAddress.text(street) &&
+            street.length > 1 &&
             regexCity.test(city) &&
             regexZipcode.test(zipcode)
         ) {
@@ -47,6 +46,7 @@ export default function From({ setModal }) {
                 department: department,
             };
             addEmployeeService(store, employeeData);
+            setModalContent('Employee Created!');
             setModal(true);
             setFirstName('');
             setLastName('');
@@ -57,6 +57,9 @@ export default function From({ setModal }) {
             setZipcode('');
             setStateName('');
             setDepartment('');
+        } else {
+            setModalContent('Merci de remplir tous les champs.');
+            setModal(true);
         }
         e.preventDefault();
         e.stopPropagation();
@@ -74,15 +77,6 @@ export default function From({ setModal }) {
                             setElement={setFirstName}
                             value={firstName}
                         />
-                        {!regexName.test(firstName) ? (
-                            <p className="text-xs text-red-300">
-                                merci de saisir un prénom
-                            </p>
-                        ) : (
-                            <p className="text-xs text-red-300 opacity-0">
-                                merci de saisir un prénom
-                            </p>
-                        )}
                     </div>
 
                     <Input

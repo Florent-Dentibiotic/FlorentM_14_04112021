@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 export default function Home() {
     const [modal, setModal] = useState(false);
+    const [modalContent, setModalContent] = useState('');
     return (
         <>
             <main className="font-sans relative opacity-10 bg-main-pattern bg-repeat-space bg-center w-screen h-screen flex justify-center items-center "></main>
@@ -13,9 +14,21 @@ export default function Home() {
                     link={'/employee-list'}
                     label={'View Current Employees'}
                 />
-                <Form setModal={setModal} />
+                <Form setModal={setModal} setModalContent={setModalContent} />
             </div>
-            {modal && <Modal setModal={setModal} />}
+            {modal && (
+                <Modal
+                    setModal={setModal}
+                    modalStyle={
+                        'p-9 border-4 flex flex-col justify-center items-center border-green-900 border-opacity-70 bg-white rounded overflow-hidden bg-scroll'
+                    }
+                    content={modalContent}
+                    contentStyle={'m-5'}
+                    buttonStyle={
+                        'w-24 p-2 opacity-80 hover:opacity-100 rounded px-5 bg-green-900 text-white'
+                    }
+                />
+            )}
         </>
     );
 }
