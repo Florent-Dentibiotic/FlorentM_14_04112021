@@ -83,6 +83,7 @@ export default function TableBody() {
                                     <div className="ml-2 flex-col flex justify-center items-center opacity-25">
                                         <button
                                             type="button"
+                                            aria-label="sort alphabetically"
                                             onClick={(e) =>
                                                 sortTable(
                                                     e,
@@ -100,6 +101,7 @@ export default function TableBody() {
                                         </button>
                                         <button
                                             type="button"
+                                            aria-label="sort alphabetically reverse"
                                             onClick={(e) =>
                                                 sortTable(
                                                     e,

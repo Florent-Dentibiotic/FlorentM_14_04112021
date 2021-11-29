@@ -98,7 +98,7 @@ export default function Form({ setModal, setModalContent }) {
                 </div>
                 <div className="flex justify-center p-5">
                     <button
-                        className="text-white font-black w-24 bg-green-900 hover:opacity-100 p-2 opacity-80 rounded"
+                        className="text-white font-black w-24 bg-green-900 hover:bg-green-700 p-2 rounded"
                         onClick={(e) =>
                             submitForm(
                                 e,

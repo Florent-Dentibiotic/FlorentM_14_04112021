@@ -14,7 +14,12 @@ export default function Header({ link, label }) {
                     </Link>
                 </div>
 
-                <img src={logo} alt="wealth health logo" className="w-20" />
+                <img
+                    src={logo}
+                    alt="wealth health logo"
+                    width="80"
+                    height="73"
+                />
             </div>
             <hr className="shadow" />
         </>
