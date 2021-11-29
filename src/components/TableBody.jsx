@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useStore } from 'react-redux';
 import { tableHead } from '../assets/json/tableHead';
+import sortTable from '../helpers/sortTable';
+import setTablePage from '../helpers/setTablePage';
 import { selectEmployee } from '../utils/selector';
 import TableFooter from './TableFooter';
 import TableHeader from './TableHeader';
+import setTableSizeHelper from '../helpers/setTableSizeHelper';
+import tableSearchHelper from '../helpers/tableSearchHelper';
 
 export default function TableBody() {
     const store = useStore();
@@ -24,84 +28,41 @@ export default function TableBody() {
     );
     const [search, setSearch] = useState('');
 
-    const handleSort = (e, direction, column) => {
-        e.preventDefault();
-        e.stopPropagation();
-        let employeeListSorted = [];
-        if (direction === 'up') {
-            employeeListSorted = Array.from(employeesListScreen).sort(function (
-                a,
-                b
-            ) {
-                if (a[column] < b[column]) {
-                    return -1;
-                }
-                if (a[column] > b[column]) {
-                    return 1;
-                }
-                return 0;
-            });
-        } else {
-            employeeListSorted = Array.from(employeesListScreen).sort(function (
-                a,
-                b
-            ) {
-                if (a[column] > b[column]) {
-                    return -1;
-                }
-                if (a[column] < b[column]) {
-                    return 1;
-                }
-                return 0;
-            });
-        }
-        setEmployeesListScreen(employeeListSorted);
-        setEmployeesList(
-            employeeListSorted.slice(
-                tableSize * page - tableSize,
-                tableSize * page
-            )
-        );
-    };
-
     const handleSetPage = (page) => {
-        setPage(page);
-        setEmployeesList(
-            employeesListScreen.slice(
-                tableSize * page - tableSize,
-                tableSize * page
-            )
+        setTablePage(
+            setPage,
+            page,
+            setEmployeesList,
+            employeesListScreen,
+            tableSize
         );
     };
 
     const handleSetTableSize = (size) => {
-        setTableSize(size);
-        setEmployeesList(
-            employeesListScreen.slice(size * page - size, size * page)
+        setTableSizeHelper(
+            setTableSize,
+            size,
+            setEmployeesList,
+            employeesListScreen,
+            page,
+            employeesListTotal,
+            setPage,
+            setPages
         );
-        setPages(Math.ceil(employeesListTotal.length / size));
-        setPage(1);
-        setEmployeesList(employeesListScreen.slice(0, size));
     };
 
     const handleSearch = (words) => {
-        setSearch(words);
-        let employeesListFiltered = [];
-        Array.from(employeesListTotal).forEach((element) => {
-            Object.values(element).some((e) =>
-                e.toUpperCase().includes(words.toUpperCase())
-            ) && employeesListFiltered.push(element);
-        });
-        console.log(employeesListFiltered);
-        setEmployeesListScreen(employeesListFiltered);
-        setEmployeesList(
-            employeesListFiltered.slice(
-                tableSize * page - tableSize,
-                tableSize * page
-            )
+        tableSearchHelper(
+            setSearch,
+            words,
+            employeesListTotal,
+            setEmployeesListScreen,
+            setEmployeesList,
+            tableSize,
+            page,
+            setPages,
+            setEmployeesListLength
         );
-        setPages(Math.ceil(employeesListFiltered.length / tableSize));
-        setEmployeesListLength(employeesListFiltered.length);
     };
 
     return (
@@ -123,10 +84,15 @@ export default function TableBody() {
                                         <button
                                             type="button"
                                             onClick={(e) =>
-                                                handleSort(
+                                                sortTable(
                                                     e,
-                                                    'up',
-                                                    element.value
+                                                    'down',
+                                                    element.value,
+                                                    employeesListScreen,
+                                                    setEmployeesListScreen,
+                                                    setEmployeesList,
+                                                    tableSize,
+                                                    page
                                                 )
                                             }
                                         >
@@ -135,10 +101,15 @@ export default function TableBody() {
                                         <button
                                             type="button"
                                             onClick={(e) =>
-                                                handleSort(
+                                                sortTable(
                                                     e,
-                                                    'down',
-                                                    element.value
+                                                    'up',
+                                                    element.value,
+                                                    employeesListScreen,
+                                                    setEmployeesListScreen,
+                                                    setEmployeesList,
+                                                    tableSize,
+                                                    page
                                                 )
                                             }
                                         >

@@ -1,8 +1,7 @@
 import Header from '../components/Header';
 import Form from '../components/Form';
-//import Modal from '../components/Modal';
+import Modal from '../components/Modal';
 import { useState } from 'react';
-import Modal from '../components/Modal/Modal';
 
 export default function Home() {
     const [modal, setModal] = useState(false);
