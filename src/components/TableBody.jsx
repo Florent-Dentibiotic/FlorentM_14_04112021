@@ -79,6 +79,9 @@ export default function TableBody() {
         setEmployeesList(
             employeesListScreen.slice(size * page - size, size * page)
         );
+        setPages(Math.ceil(employeesListTotal.length / size));
+        setPage(1);
+        setEmployeesList(employeesListScreen.slice(0, size));
     };
 
     const handleSearch = (words) => {

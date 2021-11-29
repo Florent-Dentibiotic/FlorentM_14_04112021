@@ -1,23 +1,20 @@
 export default function Modal({
-    setModal,
+    backgroundAction,
     modalStyle,
     content,
     contentStyle,
     buttonStyle,
+    buttonAction,
 }) {
-    const handleClick = () => {
-        setModal(false);
-    };
-
     return (
         <>
             <div
                 className="z-10 absolute top-0 left-0 h-screen w-screen flex justify-center items-center bg-black bg-opacity-50"
-                onClick={handleClick}
+                onClick={backgroundAction}
             >
                 <div className={modalStyle}>
                     <p className={contentStyle}>{content}</p>
-                    <button className={buttonStyle} onClick={handleClick}>
+                    <button className={buttonStyle} onClick={buttonAction}>
                         Close
                     </button>
                 </div>
