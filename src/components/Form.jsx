@@ -12,7 +12,7 @@ const regexCity = /^[a-zA-Z]+(?:[\s-'.&/][a-zA-Z]+)*(?:[.|\s])?(?:[(a-z)])*$/;
 const regexZipcode = /^[0-9]{5}$/;
 const regexDate = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/;
 
-export default function From({ setModal, setModalContent }) {
+export default function Form({ setModal, setModalContent }) {
     const store = useStore();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
