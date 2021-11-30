@@ -8,7 +8,7 @@ import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from './Firebase';
 import EmployeeMapper from '../mapping/EmployeeMapper';
 
-export async function employeeService(store) {
+export async function employeeService2(store, callback) {
     const status = selectEmployee(store.getState()).status;
     if (status === 'pending' || status === 'updating') {
         return;
@@ -16,6 +16,7 @@ export async function employeeService(store) {
     store.dispatch(employeesFetching());
     try {
         const employees = collection(db, 'Employees-list');
+        callback();
         const employeesSnapshot = await getDocs(employees);
         const employeesList = employeesSnapshot.docs.map((doc) => ({
             ...doc.data(),

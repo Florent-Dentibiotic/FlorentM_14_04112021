@@ -3,7 +3,7 @@ import Footer from '../components/Footer';
 import TableBody from '../components/TableBody';
 import { useStore } from 'react-redux';
 import { useEffect } from 'react';
-import { employeeService } from '../services/EmployeeService';
+import { employeeService2 } from '../services/EmployeeService';
 import { selectEmployee } from '../utils/selector';
 import { useSelector } from 'react-redux';
 import Loader from '../components/Loader';
@@ -13,7 +13,7 @@ export default function EmployeeList() {
     const employee = useSelector(selectEmployee);
 
     useEffect(() => {
-        employeeService(store);
+        employeeService2(store, () => {});
     }, [store]);
 
     const isLoaded = employee.status === 'resolved';

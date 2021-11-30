@@ -1,4 +1,5 @@
 export default function Modal({
+    zindex,
     backgroundAction,
     modalStyle,
     content,
@@ -9,7 +10,7 @@ export default function Modal({
     return (
         <>
             <div
-                className="z-10 absolute top-0 left-0 h-screen w-screen flex justify-center items-center bg-black bg-opacity-50"
+                className={`${zindex} absolute top-0 left-0 h-screen w-screen flex justify-center items-center bg-black bg-opacity-50`}
                 onClick={backgroundAction}
             >
                 <div className={modalStyle}>

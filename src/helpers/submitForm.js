@@ -1,4 +1,6 @@
-import { addEmployeeService } from '../services/addEmployeeService';
+import { employeeService2 } from '../services/EmployeeService';
+import { collection, addDoc } from 'firebase/firestore/lite';
+import { db } from '../services/Firebase';
 
 const regexName = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
 //const regexAddress = /(\d+) ((\w+[ ,])+ ){2}([A-Z]){2} (\d){5}/;
@@ -30,6 +32,7 @@ export default function submitForm(
     setStateName,
     setDepartment
 ) {
+    const employees = collection(db, 'Employees-list');
     if (
         regexName.test(firstName) &&
         regexName.test(lastName) &&
@@ -50,7 +53,7 @@ export default function submitForm(
             stateName: stateName,
             department: department,
         };
-        addEmployeeService(store, employeeData);
+        employeeService2(store, addDoc(employees, employeeData));
         setModalContent('Employee Created!');
         setModal(true);
         setFirstName('');
