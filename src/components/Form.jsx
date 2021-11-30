@@ -31,7 +31,6 @@ export default function Form({ setModal, setModalContent }) {
                             value={firstName}
                         />
                     </div>
-
                     <Input
                         label="Date of Birth"
                         name="birthdate"
