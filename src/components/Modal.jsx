@@ -1,5 +1,5 @@
 export default function Modal({
-    zindex,
+    zindex = 'z-10',
     backgroundAction,
     modalStyle,
     content,

@@ -4956,10 +4956,10 @@
   "resolved" "https://registry.npmjs.org/delegates/-/delegates-1.0.0.tgz"
   "version" "1.0.0"
 
-"dentibiotics_modal@^0.1.9":
-  "integrity" "sha512-VJcIv1LLKNJAG09iYtvg9gfOsLCPuO9gZJjvPzvpuHoRYtB0F5bM2S73kR6QT1VriNSkWbGu617SI4YBk8lp2Q=="
-  "resolved" "https://registry.npmjs.org/dentibiotics_modal/-/dentibiotics_modal-0.1.9.tgz"
-  "version" "0.1.9"
+"dentibiotics_modal@^0.1.11":
+  "integrity" "sha512-4UVjWN07gnjc4EBQOKTTQDpkll6lyg7SJV1SDrMvaVN3TV6WXkhyTvxlnj9SHt90nyzKuL1C1Qg450OoqrtTJg=="
+  "resolved" "https://registry.npmjs.org/dentibiotics_modal/-/dentibiotics_modal-0.1.11.tgz"
+  "version" "0.1.11"
 
 "depd@~1.1.2":
   "integrity" "sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak="

@@ -24,7 +24,6 @@ export default function Home() {
             </div>
             {modal && (
                 <Modal
-                    zindex={'z-10'}
                     backgroundAction={handleClick}
                     modalStyle={
                         'p-9 border-4 flex flex-col justify-center items-center border-green-900 border-opacity-70 bg-white rounded overflow-hidden bg-scroll'
