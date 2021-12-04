@@ -1,8 +1,4 @@
 export default function Select({ label, name, options, setElement, value }) {
-    const handleChange = (e) => {
-        setElement(e);
-    };
-
     return (
         <>
             <div className="flex flex-col">
@@ -12,7 +8,7 @@ export default function Select({ label, name, options, setElement, value }) {
                     id={name}
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded"
                     value={value}
-                    onChange={(e) => handleChange(e.target.value)}
+                    onChange={(e) => setElement(e.target.value)}
                 >
                     {options.map((element) => (
                         <option
