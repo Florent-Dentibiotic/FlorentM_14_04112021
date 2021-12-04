@@ -1,8 +1,4 @@
 export default function Input({ label, name, type, setElement, value, max }) {
-    const handleChange = (e) => {
-        setElement(e);
-    };
-
     return (
         <>
             <div className="flex flex-col">
@@ -13,7 +9,7 @@ export default function Input({ label, name, type, setElement, value, max }) {
                     id={name}
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2"
                     value={value}
-                    onChange={(e) => handleChange(e.target.value)}
+                    onChange={(e) => setElement(e.target.value)}
                     max={max}
                 ></input>
             </div>
