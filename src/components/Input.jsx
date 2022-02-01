@@ -9,7 +9,7 @@ export default function Input({ label, name, type, setElement, value, max }) {
                     id={name}
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded pl-2"
                     value={value}
-                    onChange={(e) => setElement(e.target.value)}
+                    onChange={setElement}
                     max={max}
                 ></input>
             </div>

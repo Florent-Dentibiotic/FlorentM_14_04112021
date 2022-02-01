@@ -1,4 +1,4 @@
-export default function Select({ label, name, options, setElement, value }) {
+export default function Select({ label, name, options, setElement }) {
     return (
         <>
             <div className="flex flex-col">
@@ -7,8 +7,7 @@ export default function Select({ label, name, options, setElement, value }) {
                     name={name}
                     id={name}
                     className="h-8 border-2 border-green-900 border-opacity-70 rounded"
-                    value={value}
-                    onChange={(e) => setElement(e.target.value)}
+                    onChange={setElement}
                 >
                     {options.map((element) => (
                         <option

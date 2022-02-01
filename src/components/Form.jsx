@@ -6,8 +6,14 @@ import submitForm from '../helpers/submitForm';
 import Input from './Input';
 import Select from './Select';
 
+const initialEmployeeState = {
+    stateName: states[0].abbreviation,
+    department: departments[0].abbreviation,
+};
+
 export default function Form({ setModal, setModalContent }) {
     const store = useStore();
+    const [employee, setEmployeeState] = useState(initialEmployeeState);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthdate, setBirthdate] = useState('');
@@ -18,6 +24,14 @@ export default function Form({ setModal, setModalContent }) {
     const [stateName, setStateName] = useState(states[0].abbreviation);
     const [department, setDepartment] = useState(departments[0].abbreviation);
 
+    const handleChange = (e) => {
+        const { name, value } = e.currentTarget;
+        setEmployeeState((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
     return (
         <>
             <form className="p-2">
@@ -27,29 +41,26 @@ export default function Form({ setModal, setModalContent }) {
                             label="First Name"
                             name="firstName"
                             type="text"
-                            setElement={setFirstName}
-                            value={firstName}
+                            setElement={handleChange}
                         />
                     </div>
                     <Input
                         label="Date of Birth"
                         name="birthdate"
                         type="date"
-                        setElement={setBirthdate}
-                        value={birthdate}
+                        setElement={handleChange}
                     />
                     <Input
                         label="Last Name"
                         name="lastName"
                         type="text"
-                        setElement={setLastName}
-                        value={lastName}
+                        setElement={handleChange}
                     />
                     <Input
                         label="Start Date"
                         name="startdate"
                         type="date"
-                        setElement={setStartDate}
+                        setElement={handleChange}
                         value={startDate}
                     />
                 </div>
@@ -60,28 +71,27 @@ export default function Form({ setModal, setModalContent }) {
                         label="Street"
                         name="street"
                         type="text"
-                        setElement={setStreet}
+                        setElement={handleChange}
                         value={street}
                     />
                     <Input
                         label="City"
                         name="city"
                         type="text"
-                        setElement={setCity}
+                        setElement={handleChange}
                         value={city}
                     />
                     <Select
                         label="State"
-                        name="state"
+                        name="stateName"
                         options={states}
-                        setElement={setStateName}
-                        value={stateName}
+                        setElement={handleChange}
                     />
                     <Input
                         label="Zipcode"
                         name="zipcode"
                         type="number"
-                        setElement={setZipcode}
+                        setElement={handleChange}
                         value={zipcode}
                         max="99999"
                     />
@@ -91,14 +101,14 @@ export default function Form({ setModal, setModalContent }) {
                         label="Department"
                         name="department"
                         options={departments}
-                        setElement={setDepartment}
-                        value={department}
+                        setElement={handleChange}
                     />
                 </div>
                 <div className="flex justify-center p-5">
                     <button
                         className="text-white font-black w-24 bg-green-900 hover:bg-green-700 p-2 rounded"
-                        onClick={(e) =>
+                        onClick={(e) => {
+                            console.log(employee);
                             submitForm(
                                 e,
                                 store,
@@ -122,8 +132,8 @@ export default function Form({ setModal, setModalContent }) {
                                 setZipcode,
                                 setStateName,
                                 setDepartment
-                            )
-                        }
+                            );
+                        }}
                     >
                         Save
                     </button>
